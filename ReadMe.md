@@ -1,4 +1,4 @@
-Lab Assignment
+ExpressJS Lab Assignment
 
 REQUIRED
 
