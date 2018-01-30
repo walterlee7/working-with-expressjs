@@ -8,71 +8,74 @@ const app = express();
 //set a variable to abbr. the path
 let datapath = path.join(__dirname, '../submissions.json');
 
-// -note: middleware to terminal
+// *** middleware that was used for terminal logging URL requests
 // app.use((req, res, next) => {
 //     console.log(req.originalUrl);
 //     next();
 // });
 
+// *** middleware that was used to append to a file in sync with request URLs
 // app.use((req, res, next) => {
 //     fs.appendFileSync('log.txt', `${req.url}\n`);
 //     next();
 // })
 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// takes name and email inputs from HTML form and posts the server response to '/contact-form'
 app.post('/contact-form', (req, res) => {
-    console.log(req.body.email);
+
     console.log(req.body.name);
+    console.log(req.body.email);
+
+    //created an object for name and email
     let person = {
-        email: req.body.email,
         name: req.body.name,
+        email: req.body.email,
     }
 
+    //the server response
     res.send("Thanks");
+
+    //appends 'submissions.json' with HTML form inputs, which becomes string values
     fs.appendFileSync('submissions.json', `This is the name: ${person.name}, and this is the email: ${person.email}.\n`);
 });
 
+// middleware for setting the path to the main folder 'public'
 app.use(express.static(path.join(__dirname, '../public')));
 
+
+// routes the datapath variable to the '/formsubmissions' URL
 router.get('/formsubmissions', (req, res) => {
-    //res.send("where submissions will go");
+
+    // reads and encodes the file from 'datapath'
     fs.readFile(datapath, {
         encoding: "UTF-8",
     }, (err, data) => {
-        console.log(data);
+
+        //variable that globally replaces the '\n' string with the HTML <br>
         let dat = data.replace(/\n/g, '<br />');
+
+        //sends the response to the '/formsubmissions' URL
         res.send(dat);
     });
 });
 
+// middleware for setting the router
 app.use(router);
 
+// listens for client responses on port 3000
+app.listen(3000);
+
+// *** code for showing how params works
 // app.get('/order/:id', (req, res) => {
 //     let id = req.params.id;
 //     res.send(id);
 // });
 
-// app.use('/order/:id', (req, res, next) => {
-//     console.log("Hello");
-//     next();
-// });
 
-app.listen(3000);
 
-// app.get('/', (req, res, next) => {
-//     res.send("Hello from the web server side...");
-// });
 
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../public/index.html'));
-// });
 
-// app.get('/css/styles.css', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../css/styles.css'));
-// });
-
-// app.get('/js/app.js', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../js/app.js'));
-// });
 

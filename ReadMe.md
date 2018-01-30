@@ -18,7 +18,7 @@ ADVANCED
 
 //Add Bootstrap to your index.html.
 //Create a form that posts to a route on your express server.
-//rite the values from the form post to a json file on your server.
+//Write the values from the form post to a json file on your server.
 //Remember to set the action of the form to your route.
 //Change the method of the form to POST.
-Create a route /formsubmissions that reads the file and responds with the results.
+//Create a route /formsubmissions that reads the file and responds with the results.
