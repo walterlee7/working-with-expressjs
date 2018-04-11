@@ -20,7 +20,7 @@ let datapath = path.join(__dirname, '../submissions.json');
 //     next();
 // })
 
-
+//this turns the input form string values to JSON
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // takes name and email inputs from HTML form and posts the server response to '/contact-form'
